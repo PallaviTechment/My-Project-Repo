@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Basic Calculator</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Basic Calculator</h1>
+
+      <div class="calc">
+        <input id="a" type="number" step="any" placeholder="First number" />
+        <select id="op">
+          <option value="+">+</option>
+          <option value="-">-</option>
+          <option value="*">*</option>
+          <option value="/">/</option>
+        </select>
+        <input id="b" type="number" step="any" placeholder="Second number" />
+        <button id="go">Calculate</button>
+      </div>
+
+      <div id="result" class="result">Result: <span id="val">—</span></div>
+    </main>
+
+    <script>
+      async function calculate() {
+        const a = document.getElementById('a').value || '0';
+        const b = document.getElementById('b').value || '0';
+        const op = document.getElementById('op').value;
+
+        const resp = await fetch('/calculate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ a, b, op }),
+        });
+        const data = await resp.json();
+        const el = document.getElementById('val');
+        if (data.ok) {
+          el.textContent = data.result;
+        } else {
+          el.textContent = 'Error: ' + data.error;
+        }
+      }
+
+      document.getElementById('go').addEventListener('click', calculate);
+
+      // allow Enter key on inputs
+      ['a','b'].forEach(id => {
+        document.getElementById(id).addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') calculate();
+        });
+      });
+    </script>
+  </body>
+</html>

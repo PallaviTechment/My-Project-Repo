@@ -1,0 +1,8 @@
+body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:#f6f8fa; color:#111; }
+.container { max-width:520px; margin:48px auto; padding:24px; background: #fff; border-radius:8px; box-shadow: 0 6px 18px rgba(17,17,17,0.06); }
+h1 { margin:0 0 16px 0; font-size:20px }
+.calc { display:flex; gap:8px; align-items:center; margin-bottom:12px }
+input[type=number]{ padding:8px; border:1px solid #dfe3e8; border-radius:6px; width:120px }
+select{ padding:8px; border:1px solid #dfe3e8; border-radius:6px }
+button{ padding:8px 12px; border:none; background:#0366d6; color:#fff; border-radius:6px; cursor:pointer }
+.result { color:#333; font-weight:600 }
