@@ -1,4 +1,5 @@
 flask>=2.0
+coverage>=6.0
 playwright>=1.40
 pytest
 pytest-playwright

@@ -29,6 +29,28 @@ Quick start
    npx playwright install
    npx playwright test
 
+Coverage
+--------
+To collect coverage of the Python server while Playwright exercises the UI, start the Flask app with the environment variable `COVERAGE=1`. This will cause the server to collect coverage and emit a detailed JSON report when the process exits.
+
+Example (macOS/zsh):
+
+```bash
+# from project root
+source .venv/bin/activate
+COVERAGE=1 python app.py
+
+# in another terminal run Playwright tests
+cd tests/playwright-js
+npx playwright test
+
+# after the server process exits, coverage-playwright.json will be created in the project root
+```
+
+Convenience helper
+-------------------
+If you want Playwright to start the server with coverage for you, use the helper `tests/playwright-js/start_server_coverage.js` from your Playwright tests to spawn the server with coverage enabled.
+
 Project layout
 - `app.py` — Flask application entrypoint and wiring
 - `calculator/backend.py` — arithmetic logic

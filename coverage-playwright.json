@@ -1,0 +1,110 @@
+{
+  "/Users/techment/Desktop/GIT CODE Base/My Project/calculator/advanced.py": {
+    "path": "/Users/techment/Desktop/GIT CODE Base/My Project/calculator/advanced.py",
+    "source": "\"\"\"Advanced calculator operations kept separate from core backend.\n\nIncludes unary and non-basic binary operations used by the UI/API.\n\"\"\"\nfrom typing import Union\n\nNumber = Union[int, float]\n\n\ndef power(a: Number, b: Number) -> float:\n    a = float(a)\n    b = float(b)\n    return a ** b\n\n\ndef mod(a: Number, b: Number) -> float:\n    a = float(a)\n    b = float(b)\n    if b == 0:\n        raise ZeroDivisionError(\"division by zero\")\n    return a % b\n\n\ndef sqrt(a: Number) -> float:\n    a = float(a)\n    if a < 0:\n        raise ValueError(\"sqrt of negative\")\n    return a ** 0.5\n\n\ndef negate(a: Number) -> float:\n    return -float(a)\n\n\ndef percent_of(a: Number, b: Number) -> float:\n    \"\"\"Return a percent of b: (a / 100) * b\n\n    Example: a=10, b=200 -> 10% of 200 -> 20\n    \"\"\"\n    a = float(a)\n    b = float(b)\n    return (a / 100.0) * b\n",
+    "executed_lines": [
+      11,
+      12,
+      13,
+      17,
+      18,
+      19,
+      21,
+      25,
+      26,
+      28
+    ],
+    "functions": [
+      {
+        "name": "power",
+        "lineno": 10,
+        "end_lineno": 13,
+        "executed": true
+      },
+      {
+        "name": "mod",
+        "lineno": 16,
+        "end_lineno": 21,
+        "executed": true
+      },
+      {
+        "name": "sqrt",
+        "lineno": 24,
+        "end_lineno": 28,
+        "executed": true
+      },
+      {
+        "name": "negate",
+        "lineno": 31,
+        "end_lineno": 32,
+        "executed": false
+      },
+      {
+        "name": "percent_of",
+        "lineno": 35,
+        "end_lineno": 42,
+        "executed": false
+      }
+    ]
+  },
+  "/Users/techment/Desktop/GIT CODE Base/My Project/calculator/backend.py": {
+    "path": "/Users/techment/Desktop/GIT CODE Base/My Project/calculator/backend.py",
+    "source": "\"\"\"Calculator backend module with basic operations.\n\nThis module exposes basic arithmetic plus hooks for advanced operations\nprovided in `calculator.advanced`.\n\"\"\"\nfrom typing import Union\n\nfrom . import advanced\n\n\nNumber = Union[int, float]\n\n\ndef add(a: Number, b: Number) -> Number:\n    return a + b\n\n\ndef subtract(a: Number, b: Number) -> Number:\n    return a - b\n\n\ndef multiply(a: Number, b: Number) -> Number:\n    return a * b\n\n\ndef divide(a: Number, b: Number) -> Number:\n    if b == 0:\n        raise ZeroDivisionError(\"division by zero\")\n    return a / b\n\n\ndef calculate(op: str, a: Number, b: Number) -> Number:\n    \"\"\"Calculate using an operation string.\n\n    Supported ops:\n      +, -, *, /           (basic)\n      pow, ^              (power)\n      mod, %              (modulus)\n      percent             (percentage: a percent of b -> (a/100)*b )\n      sqrt                (square root of a; b ignored)\n    \"\"\"\n    ops = {\n        \"+\": add,\n        \"-\": subtract,\n        \"*\": multiply,\n        \"/\": divide,\n        \"pow\": advanced.power,\n        \"^\": advanced.power,\n        \"mod\": advanced.mod,\n        \"%\": advanced.mod,\n        \"percent\": advanced.percent_of,\n        \"sqrt\": advanced.sqrt,\n    }\n    if op not in ops:\n        raise ValueError(f\"unsupported operation: {op}\")\n    func = ops[op]\n    # sqrt expects one argument; keep signature stable by only passing a\n    if op == \"sqrt\":\n        return func(a)\n    return func(a, b)\n",
+    "executed_lines": [
+      15,
+      19,
+      23,
+      27,
+      28,
+      29,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      54,
+      56,
+      58,
+      59,
+      60
+    ],
+    "functions": [
+      {
+        "name": "add",
+        "lineno": 14,
+        "end_lineno": 15,
+        "executed": true
+      },
+      {
+        "name": "subtract",
+        "lineno": 18,
+        "end_lineno": 19,
+        "executed": true
+      },
+      {
+        "name": "multiply",
+        "lineno": 22,
+        "end_lineno": 23,
+        "executed": true
+      },
+      {
+        "name": "divide",
+        "lineno": 26,
+        "end_lineno": 29,
+        "executed": true
+      },
+      {
+        "name": "calculate",
+        "lineno": 32,
+        "end_lineno": 60,
+        "executed": true
+      }
+    ]
+  }
+}
